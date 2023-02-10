@@ -1,0 +1,123 @@
+spring:
+  profiles:
+    active: local
+  pid:
+    file: test-boot.pid
+  autoconfigure:
+    exclude:
+    - org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
+  mvc:
+    ignore-default-model-on-redirect: true
+    view:
+      prefix: "/WEB-INF/views/"
+      suffix: ".jsp"
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
+  task:
+    execution:
+      thread-name-prefix:  task-
+      pool:
+        core-size: 16
+        max-size: 128
+
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    app-data:
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: org.postgresql.Driver
+      jdbc-url: "jdbc:postgresql://192.168.122.162:5432/test_boot?currentSchema=public"
+      username: "test_boot"
+      password: ENC(xgrGO2kNPNyXlXkANAdV0Y2SsV184glQYkdAbK6J4sWVw3sBpfrVK2nBnP0SemJr)
+      hikari:
+        minimum-idle: 10
+        maximum-pool-size: 300
+        connection-timeout: 100000
+        connection-test-query: select 1
+  quartz:
+    overwrite-existing-jobs: true
+    properties:
+      org:
+        quartz:
+          threadPool:
+            threadCount: 20
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+
+mybatis:
+  configuration:
+    jdbc-type-for-null: "NULL"
+    call-setters-on-nulls: true
+
+server:
+#  http:
+#    port: 8080
+  port: 8888
+  ssl:
+    enabled: false
+#    key-store: classpath:test-boot.cert
+#    key-store-password: testboot
+#    key-store-type: PKCS12
+#    key-alias: testboot
+  tomcat:
+    uri-encoding: UTF-8
+    use-relative-redirects: true
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+    session:
+      timeout: 720m
+      cookie:
+        http-only: true
+
+debug: false
+logging:
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan}-%4L %clr(:){faint} %m%n%wEx"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } --- [%15.15t] %-40.40logger{39}-%4L : %m%n%wEx"
+  level:
+    '[hobbieco.test]': debug
+    '[jdbc.connection]': error
+    '[jdbc.sqlonly]': error
+    '[jdbc.sqltiming]': info
+    '[jdbc.audit]': error
+    '[jdbc.resultset]': error
+    '[jdbc.resultsettable]': error
+    '[com.zaxxer.hikari]': error
+    '[org.springframework]': info
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+test-props:
+  test: ENC(Co853sr3im6XGyN0NF1k+RHEi6xEkoay5Qr4M7B8sNCeKDLMJOizKs6fvXzVXNdL)
+
+tcp-socket-props:
+  server-port: 8000
+  encoding: EUC-KR
+
+jedis-props:
+  ip: 192.168.122.162
+  port: 6379
+  auth: ENC(Z9g8z9Hwwe51+CpBu5QqqdxApLtFeqY8USr6fXxITcK85/+qsnZ947lF2HcPl7mi)
+
+lettuce-props:
+  ip: 192.168.122.162
+  port: 6379
+  auth: ENC(Z9g8z9Hwwe51+CpBu5QqqdxApLtFeqY8USr6fXxITcK85/+qsnZ947lF2HcPl7mi)
+
+
