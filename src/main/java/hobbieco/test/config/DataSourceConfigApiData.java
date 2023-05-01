@@ -17,40 +17,40 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.zaxxer.hikari.HikariDataSource;
 
-import hobbieco.test.config.annotation.MapperAppData;
+import hobbieco.test.config.annotation.MapperApiData;
 
 /**
  * Data Source Configuration
- * SQLite - Application Data
+ * SQLite - API Data
  *
  */
 @Configuration
-@MapperScan(value = {"hobbieco.test.*"}, annotationClass = MapperAppData.class, sqlSessionFactoryRef = "sqlSessionFactoryAppData")
+@MapperScan(value = {"hobbieco.test.*"}, annotationClass = MapperApiData.class, sqlSessionFactoryRef = "sqlSessionFactoryApiData")
 @EnableTransactionManagement
-public class DataSourceConfigAppData {
+public class DataSourceConfigApiData {
 	
-	@Bean(name = "dataSourceAppData")
-    @ConfigurationProperties(prefix = "spring.datasource.app-data")
+	@Bean(name = "dataSourceApiData")
+    @ConfigurationProperties(prefix = "spring.datasource.api-data")
     DataSource dataSource() {
         return DataSourceBuilder.create().type(HikariDataSource.class).build();
     }
 
-    @Bean(name = "sqlSessionFactoryAppData")
-    SqlSessionFactory sqlSessionFactory(@Qualifier("dataSourceAppData") DataSource dataSource, ApplicationContext applicationContext) throws Exception {
+    @Bean(name = "sqlSessionFactoryApiData")
+    SqlSessionFactory sqlSessionFactory(@Qualifier("dataSourceApiData") DataSource dataSource, ApplicationContext applicationContext) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
-        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:sql/app/**/*_app.xml"));
-        sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:sql/mybatis_app.xml"));
+        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:sql/api/**/*_api.xml"));
+        sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:sql/mybatis_api.xml"));
         return sqlSessionFactoryBean.getObject();
     }
 
-    @Bean(name = "sqlSessionTemplateAppData")
-    SqlSessionTemplate sqlSessionTemplate(@Qualifier("sqlSessionFactoryAppData") SqlSessionFactory sqlSessionFactory) {
+    @Bean(name = "sqlSessionTemplateApiData")
+    SqlSessionTemplate sqlSessionTemplate(@Qualifier("sqlSessionFactoryApiData") SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
     
-    @Bean(name = "transactionAppData")
-    DataSourceTransactionManager dataSourceTransactionManager(@Qualifier("dataSourceAppData") DataSource dataSource) {
+    @Bean(name = "transactionApiData")
+    DataSourceTransactionManager dataSourceTransactionManager(@Qualifier("dataSourceApiData") DataSource dataSource) {
     	DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
     	dataSourceTransactionManager.setDataSource(dataSource);
     	return dataSourceTransactionManager;

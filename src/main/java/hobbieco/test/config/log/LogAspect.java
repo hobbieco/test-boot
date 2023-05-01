@@ -38,7 +38,7 @@ public class LogAspect {
 	/**
 	 * HTTP 요청 로그 설정
 	 */
-	@Pointcut("execution(* hobbieco.test..*Controller.*(..)) && !@annotation(hobbieco.test.config.annotation.NoLog)") // 이런 패턴이 실행될 경우 수행
+	@Pointcut("execution(* hobbieco.test..*Controller.*(..)) && !@annotation(hobbieco.test.config.annotation.NoRequestLog)") // 이런 패턴이 실행될 경우 수행
     public void httpLogPointcut() {
 		
     }

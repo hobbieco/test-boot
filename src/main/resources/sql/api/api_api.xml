@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hobbieco.test.app.api.mapper.ApiMapperApiData">
+
+
+
+<sql id='lockDt'>
+	<choose>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(se,@hobbieco.test.common.R@LOCK)'>lock_dt</when>
+		<otherwise>unlock_dt</otherwise>
+	</choose>
+</sql>
+
+
+
+
+
+	<select id="testSelect" resultType="java.lang.String">
+SELECT 'test sqlite' AS test
+	</select>
+
+
+
+	<insert id="testInsert" parameterType="java.util.Map">
+INSERT INTO T_TABLE_NAME (COLUMN1, COLUMN2) VALUES
+		<foreach collection="listName" item="i" separator="),(" open="(" close=")">
+	#{i.COLUMN1}, #{i.COLUMN2}
+		</foreach>
+	</insert>
+
+
+
+<select id='selectLock' resultType='int'>
+select count(1) from t_lock where name = #{name} and se = #{se}
+</select>
+
+<insert id='insertLock'>
+insert into t_lock (name,se,<include refid='lockDt'/>) values (#{name},#{se},datetime('now','localtime'))
+on conflict(name) do update set se = #{se}, <include refid='lockDt'/> = datetime('now','localtime')
+</insert>
+
+
+
+
+
+</mapper>

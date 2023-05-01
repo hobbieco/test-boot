@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,java,maven,visualstudiocode,eclipse,intellij+all
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,java,maven,visualstudiocode,eclipse,intellij+all
 
+# PID File
+*.pid
+
 ### Eclipse ###
 .metadata
 bin/

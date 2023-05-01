@@ -30,16 +30,38 @@ spring:
     activate:
       on-profile: local
   datasource:
+#    app-data:
+#      type: com.zaxxer.hikari.HikariDataSource
+#      driver-class-name: org.postgresql.Driver
+#      jdbc-url: "jdbc:postgresql://192.168.122.162:5432/test_boot?currentSchema=public"
+#      username: "test_boot"
+#      password: ENC(xgrGO2kNPNyXlXkANAdV0Y2SsV184glQYkdAbK6J4sWVw3sBpfrVK2nBnP0SemJr)
+#      hikari:
+#        minimum-idle: 10
+#        maximum-pool-size: 300
+#        connection-timeout: 100000
+#        connection-test-query: select 1
     app-data:
       type: com.zaxxer.hikari.HikariDataSource
-      driver-class-name: org.postgresql.Driver
-      jdbc-url: "jdbc:postgresql://192.168.122.162:5432/test_boot?currentSchema=public"
-      username: "test_boot"
-      password: ENC(xgrGO2kNPNyXlXkANAdV0Y2SsV184glQYkdAbK6J4sWVw3sBpfrVK2nBnP0SemJr)
+      driver-class-name: org.sqlite.JDBC
+      jdbc-url: jdbc:sqlite:sql/sqlite/app-data.sqlite3
+      username: sa
+      password: sa
       hikari:
-        minimum-idle: 10
-        maximum-pool-size: 300
-        connection-timeout: 100000
+        minimum-idle: 5
+        maximum-pool-size: 10
+        connection-timeout: 10000
+        connection-test-query: select 1
+    api-data:
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: org.sqlite.JDBC
+      jdbc-url: jdbc:sqlite:sql/sqlite/api-data.sqlite3
+      username: sa
+      password: sa
+      hikari:
+        minimum-idle: 5
+        maximum-pool-size: 10
+        connection-timeout: 10000
         connection-test-query: select 1
   quartz:
     overwrite-existing-jobs: true
@@ -110,14 +132,12 @@ tcp-socket-props:
   server-port: 8000
   encoding: EUC-KR
 
-jedis-props:
-  ip: 192.168.122.162
-  port: 6379
-  auth: ENC(Z9g8z9Hwwe51+CpBu5QqqdxApLtFeqY8USr6fXxITcK85/+qsnZ947lF2HcPl7mi)
-
 lettuce-props:
   ip: 192.168.122.162
   port: 6379
   auth: ENC(Z9g8z9Hwwe51+CpBu5QqqdxApLtFeqY8USr6fXxITcK85/+qsnZ947lF2HcPl7mi)
 
-
+awx-props:
+  base-url: http://192.168.122.240
+  api-id: api
+  api-pwd: ENC(A0almLJpexm/JwkBvLGUOX9QrHopoS6P1pHGl6drHQL6Xx+0N/jOc31xeGxUsYWF)

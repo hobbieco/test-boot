@@ -5,7 +5,7 @@
 
 
 	<select id="testSelect" resultType="java.lang.String">
-SELECT 'test maria' AS test
+SELECT 'test sqlite' AS test
 	</select>
 
 

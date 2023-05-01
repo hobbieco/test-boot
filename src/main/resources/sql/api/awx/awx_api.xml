@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="hobbieco.test.app.api.mapper.AwxMapperApiData">
+
+
+
+<sql id='tableName'>
+	<choose>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@ORGANIZATION)'>t_awx_organization</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@CREDENTIAL_TYPE)'>t_awx_credential_type</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@CREDENTIAL)'>t_awx_credential</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@INVENTORY)'>t_awx_inventory</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@INVENTORY_SOURCE)'>t_awx_inventory_source</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@GROUP)'>t_awx_group</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@HOST)'>t_awx_host</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@HOST_ALL_GROUP)'>t_awx_host_all_group</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@PROJECT)'>t_awx_project</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@JOB_TEMPLATE)'>t_awx_job_template</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@WORKFLOW_JOB_TEMPLATE)'>t_awx_workflow_job_template</when>
+	</choose>
+</sql>
+
+<sql id='columnList'>
+	<choose>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@ORGANIZATION)'>
+			id, name, description
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@CREDENTIAL_TYPE)'>
+			id, name, description, kind, namespace
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@CREDENTIAL)'>
+			id, name, description, organization_id, credential_type_id
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@INVENTORY)'>
+			id, name, description, organization_id, host_count, group_count, inventory_source_count, variables
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@INVENTORY_SOURCE)'>
+			id, name, description, inventory_id, source, source_path, source_project_id, status
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@GROUP)'>
+			id, name, description, inventory_id, variables
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@HOST)'>
+			id, name, description, inventory_id, enabled, variables
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@HOST_ALL_GROUP)'>
+			host_id, group_id, inventory_id
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@PROJECT)'>
+			id, name, description, organization_id, local_path, scm_type, scm_url
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@JOB_TEMPLATE)'>
+			id, name, description, job_type, organization_id, inventory_id, project_id, playbook, verbosity, extra_vars
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(targetData,@hobbieco.test.common.AwxUtil@WORKFLOW_JOB_TEMPLATE)'>
+			id, name, description, organization_id, inventory_id, extra_vars
+		</when>
+	</choose>
+</sql>
+
+<sql id='valueList'>
+	<choose>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(i.tableName,@hobbieco.test.common.AwxUtil@ORGANIZATION)'>
+			#{i.id}, #{i.name}, #{i.description}
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(i.tableName,@hobbieco.test.common.AwxUtil@CREDENTIAL_TYPE)'>
+			#{i.id}, #{i.name}, #{i.description}, #{i.kind}, #{i.namespace}
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(i.tableName,@hobbieco.test.common.AwxUtil@CREDENTIAL)'>
+			#{i.id}, #{i.name}, #{i.description}, #{i.organization_id}, #{i.credential_type_id}
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(i.tableName,@hobbieco.test.common.AwxUtil@INVENTORY)'>
+			#{i.id}, #{i.name}, #{i.description}, #{i.organization_id}, #{i.host_count}, #{i.group_count}, #{i.inventory_source_count}, #{i.variables}
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(i.tableName,@hobbieco.test.common.AwxUtil@INVENTORY_SOURCE)'>
+			#{i.id}, #{i.name}, #{i.description}, #{i.inventory_id}, #{i.source}, #{i.source_path}, #{i.source_project_id}, #{i.status}
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(i.tableName,@hobbieco.test.common.AwxUtil@GROUP)'>
+			#{i.id}, #{i.name}, #{i.description}, #{i.inventory_id}, #{i.variables}
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(i.tableName,@hobbieco.test.common.AwxUtil@HOST)'>
+			#{i.id}, #{i.name}, #{i.description}, #{i.inventory_id}, #{i.enabled}, #{i.variables}
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(i.tableName,@hobbieco.test.common.AwxUtil@HOST_ALL_GROUP)'>
+			#{i.host_id}, #{i.group_id}, #{i.inventory_id}
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(i.tableName,@hobbieco.test.common.AwxUtil@PROJECT)'>
+			#{i.id}, #{i.name}, #{i.description}, #{i.organization_id}, #{i.local_path}, #{i.scm_type}, #{i.scm_url}
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(i.tableName,@hobbieco.test.common.AwxUtil@JOB_TEMPLATE)'>
+			#{i.id}, #{i.name}, #{i.description}, #{i.job_type}, #{i.organization_id}, #{i.inventory_id}, #{i.project_id}, #{i.playbook}, #{i.verbosity}, #{i.extra_vars}
+		</when>
+		<when test='@org.apache.commons.lang3.StringUtils@equals(i.tableName,@hobbieco.test.common.AwxUtil@WORKFLOW_JOB_TEMPLATE)'>
+			#{i.id}, #{i.name}, #{i.description}, #{i.organization_id}, #{i.inventory_id}, #{i.extra_vars}
+		</when>
+	</choose>
+</sql>
+
+
+
+<update id='updateSe'>
+update <include refid='tableName'/> set
+	se = #{se}
+	<if test='@org.apache.commons.lang3.StringUtils@equals(se,@hobbieco.test.common.R@DELETE)'>, update_dt = datetime('now','localtime')</if>
+where se = #{targetSe}
+</update>
+
+
+
+<insert id='insertData' parameterType='map'>
+insert or replace into <include refid='tableName'/> (<include refid='columnList'/>, se, update_dt) VALUES
+	<foreach collection='list' item='i' separator='),(' open='(' close=')'>
+		<include refid='valueList'/>, 'current', datetime('now','localtime')
+	</foreach>
+</insert>
+
+<select id='selectData' resultType='map'>
+select <include refid='columnList'/>, se, update_dt
+from <include refid='tableName'/>
+	<if test='@org.apache.commons.lang3.StringUtils@isNotBlank(orderBy)'>
+order by #{orderBy}
+	</if>
+</select>
+
+
+
+</mapper>

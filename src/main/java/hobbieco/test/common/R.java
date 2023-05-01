@@ -10,6 +10,15 @@ public class R {
 	public static final String UNKNOWN = "unknown";
 	public static final String RESULT_CODE = "resultCode";
 	public static final String RESULT_MESSAGE = "resultMessage";
+	public static final String READY = "ready";
+	public static final String CURRENT = "current";
+	public static final String DELETE = "delete";
+	public static final String LOCK = "lock";
+	public static final String UNLOCK = "unlock";
+	public static final String PASSED = "passed";
+	public static final String INTEGER = "integer";
+	public static final String STRING = "string";
+	public static final String API_AWX_SAVE_DATA = "apiAwxSaveData";
 
 	/**
 	 * Spring Profiles

@@ -6,11 +6,11 @@ import org.springframework.stereotype.Component;
 import lombok.Data;
 
 @Component
-@ConfigurationProperties(prefix="jedis-props")
+@ConfigurationProperties(prefix="awx-props")
 @Data
-public class JedisProps {
+public class AwxProps {
 
-	private String ip;
-	private int port;
-	private String auth;
+	public String baseUrl;
+	public String apiId;
+	public String apiPwd;
 }

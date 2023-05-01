@@ -24,6 +24,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -232,7 +233,7 @@ public class ApiRequestUtil {
 			HttpPost request = new HttpPost(url);
 
 			// body String 처리
-			request.setHeader(HttpHeaders.CONTENT_TYPE, "application/json; charset=utf-8");
+			request.setHeader(HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON.getMimeType());
 			request.setEntity(new StringEntity(body, StandardCharsets.UTF_8));
 
 			// 요청 후 응답 처리
